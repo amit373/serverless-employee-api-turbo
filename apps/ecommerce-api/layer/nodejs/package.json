@@ -1,0 +1,23 @@
+{
+  "name": "ecommerce-api-layer",
+  "version": "1.0.0",
+  "description": "Lambda Layer for E-commerce API Dependencies",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "npm prune --production"
+  },
+  "dependencies": {
+    "@packages/constants": "*",
+    "@packages/errors": "*",
+    "@packages/logger": "*",
+    "@packages/db": "*",
+    "@packages/config": "*",
+    "@packages/validators": "*",
+    "@packages/middlewares": "*",
+    "@packages/utils": "*",
+    "mongoose": "^7.0.0",
+    "zod": "^3.20.0",
+    "bcrypt": "^5.1.0",
+    "jsonwebtoken": "^9.0.0"
+  }
+}

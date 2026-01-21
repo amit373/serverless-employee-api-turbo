@@ -1,0 +1,35 @@
+{
+  "name": "@apps/ecommerce-api",
+  "version": "1.0.0",
+  "description": "Serverless E-commerce API",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "build:layer": "node scripts/build-layer.js",
+    "dev": "[ -s \"$HOME/.nvm/nvm.sh\" ] && . \"$HOME/.nvm/nvm.sh\" && nvm use 20 >/dev/null 2>&1; npx serverless offline start",
+    "deploy": "serverless deploy",
+    "remove": "serverless remove",
+    "logs": "serverless logs -f hello -t",
+    "lint": "eslint src/**/*.ts",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-lambda": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.110",
+    "@types/bcrypt": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.1",
+    "@types/node": "^18.11.18",
+    "esbuild": "^0.17.10",
+    "serverless": "^3.38.0",
+    "serverless-dotenv-plugin": "^6.0.0",
+    "serverless-esbuild": "^1.45.1",
+    "serverless-offline": "^13.9.0",
+    "typescript": "^4.9.5"
+  },
+  "_comment": "NOTE: Layer dependencies (mongoose, zod, bcrypt, jsonwebtoken, @packages/*) are NOT listed here because they come from the Lambda layer in production. For local development, they're available via workspace hoisting from root package.json. They are marked as 'external' in serverless.yml so they are NOT bundled - production uses the layer."
+}

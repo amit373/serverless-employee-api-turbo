@@ -1,0 +1,4 @@
+# Define your AWS resources here
+# Note: This API uses MongoDB, so no DynamoDB resources are needed
+Resources:
+  # Add other AWS resources here if needed (S3 buckets, SQS queues, etc.)

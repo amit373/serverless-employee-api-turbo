@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  ecommerce-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ecommerce-api
+    ports:
+      - "3000:3000"
+      - "3002:3002"
+    environment:
+      - NODE_OPTIONS=--experimental-vm-modules
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://mongodb:27017/ecommerce-dev
+      - JWT_SECRET=your-super-secret-jwt-key-here-32-chars-minimum
+      - JWT_REFRESH_SECRET=your-super-secret-refresh-key-here-32-chars-minimum
+      - AWS_REGION=us-east-1
+      - STAGE=dev
+    volumes:
+      - ./apps/ecommerce-api:/app/apps/ecommerce-api
+      - ./packages:/app/packages
+    depends_on:
+      - mongodb
+    networks:
+      - ecommerce-network
+
+  mongodb:
+    image: mongo:7
+    container_name: ecommerce-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - ecommerce-network
+    environment:
+      - MONGO_INITDB_DATABASE=ecommerce-dev
+
+volumes:
+  mongodb-data:
+
+networks:
+  ecommerce-network:
+    driver: bridge

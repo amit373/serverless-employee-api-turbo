@@ -1,0 +1,76 @@
+service: ecommerce-api
+
+frameworkVersion: "3"
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-esbuild
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ${env:AWS_REGION, "us-east-1"}
+  stage: ${env:STAGE, "dev"}
+  memorySize: 256
+  timeout: 30
+  environment:
+    NODE_ENV: ${env:NODE_ENV, "development"}
+    MONGODB_URI: ${env:MONGODB_URI, "mongodb://localhost:27017/ecommerce-dev"}
+    JWT_SECRET: ${env:JWT_SECRET, "your-super-secret-jwt-key-here-32-chars-minimum"}
+    JWT_REFRESH_SECRET: ${env:JWT_REFRESH_SECRET, "your-super-secret-refresh-key-here-32-chars-minimum"}
+    STAGE: ${self:provider.stage}
+  layers:
+    - arn:aws:lambda:${self:provider.region}:*:layer:${self:service}-${self:provider.stage}-dependencies:*
+
+functions:
+  - "${file(./serverless/functions.yml)}"
+
+layers:
+  dependencies:
+    path: layer
+    name: ${self:service}-${self:provider.stage}-dependencies
+    description: E-commerce API Dependencies Layer
+    compatibleRuntimes:
+      - nodejs20.x
+    package:
+      patterns:
+        - "nodejs/node_modules/**"
+
+resources:
+  - "${file(./serverless/resources.yml)}"
+
+custom:
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: false
+    # All dependencies that are in the Lambda layer should be external
+    # This ensures production builds use layer dependencies, not bundled code
+    # For local dev, these are installed from devDependencies
+    # For production, these come from the Lambda layer
+    external:
+      - aws-sdk
+      # Layer dependencies - these come from the Lambda layer in production
+      # Listed in devDependencies for local development only
+      - "@packages/constants"
+      - "@packages/errors"
+      - "@packages/logger"
+      - "@packages/db"
+      - "@packages/config"
+      - "@packages/validators"
+      - "@packages/middlewares"
+      - "@packages/utils"
+      - mongoose
+      - zod
+      - bcrypt
+      - jsonwebtoken
+    # Note: Layer dependencies are NOT in package.json dependencies
+    # They come from the Lambda layer in production
+    # For local dev, they're available via workspace hoisting or root package.json
+    target: "node20"
+    platform: "node"
+    concurrency: 10
+  serverless-offline:
+    host: 0.0.0.0
+    httpPort: 3000

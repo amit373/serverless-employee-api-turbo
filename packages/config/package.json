@@ -1,0 +1,21 @@
+{
+  "name": "@packages/config",
+  "version": "1.0.0",
+  "description": "Environment configuration with Zod validation",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^25.0.6",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "zod": "^3.22.4"
+  }
+}

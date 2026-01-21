@@ -1,0 +1,49 @@
+export const HTTP_STATUS = {
+  OK: 200,
+  CREATED: 201,
+  ACCEPTED: 202,
+  NO_CONTENT: 204,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  CONFLICT: 409,
+  UNPROCESSABLE_ENTITY: 422,
+  INTERNAL_SERVER_ERROR: 500,
+  BAD_GATEWAY: 502,
+  SERVICE_UNAVAILABLE: 503,
+} as const;
+
+export const HTTP_MESSAGES = {
+  BAD_REQUEST: "Bad Request",
+  UNAUTHORIZED: "Unauthorized",
+  FORBIDDEN: "Forbidden",
+  NOT_FOUND: "Not Found",
+  CONFLICT: "Conflict",
+  INTERNAL_SERVER_ERROR: "Internal Server Error",
+  UNPROCESSABLE_ENTITY: "Unprocessable Entity",
+} as const;
+
+export const ERROR_CODES = {
+  VALIDATION_ERROR: "VALIDATION_ERROR",
+  DATABASE_ERROR: "DATABASE_ERROR",
+  AUTH_ERROR: "AUTH_ERROR",
+  BUSINESS_ERROR: "BUSINESS_ERROR",
+} as const;
+
+export const MONGODB_CONNECTION = {
+  RETRY_ATTEMPTS: 5,
+  RETRY_DELAY: 1000, // 1 second
+  TIMEOUT: 30000, // 30 seconds
+} as const;
+
+export const JWT_CONFIG = {
+  ALGORITHM: "HS256",
+  EXPIRES_IN: "24h",
+  REFRESH_EXPIRES_IN: "7d",
+} as const;
+
+export const PAGINATION = {
+  DEFAULT_LIMIT: 10,
+  MAX_LIMIT: 100,
+} as const;

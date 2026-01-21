@@ -1,0 +1,114 @@
+# Define your functions here
+users:
+  handler: src/functions/users.handler
+
+  events:
+    - http:
+        path: users
+        method: get
+        cors: true
+    - http:
+        path: users
+        method: post
+        cors: true
+    - http:
+        path: users/{id}
+        method: get
+        cors: true
+    - http:
+        path: users/{id}
+        method: put
+        cors: true
+    - http:
+        path: users/{id}
+        method: delete
+        cors: true
+
+auth:
+  handler: src/functions/auth.handler
+
+  events:
+    - http:
+        path: auth/login
+        method: post
+        cors: true
+    - http:
+        path: auth/register
+        method: post
+        cors: true
+    - http:
+        path: auth/logout
+        method: post
+        cors: true
+
+products:
+  handler: src/functions/products.handler
+
+  events:
+    - http:
+        path: products
+        method: get
+        cors: true
+    - http:
+        path: products
+        method: post
+        cors: true
+    - http:
+        path: products/{id}
+        method: get
+        cors: true
+    - http:
+        path: products/{id}
+        method: put
+        cors: true
+    - http:
+        path: products/{id}
+        method: delete
+        cors: true
+
+categories:
+  handler: src/functions/categories.handler
+
+  events:
+    - http:
+        path: categories
+        method: get
+        cors: true
+    - http:
+        path: categories
+        method: post
+        cors: true
+
+cart:
+  handler: src/functions/cart.handler
+
+  events:
+    - http:
+        path: cart
+        method: get
+        cors: true
+    - http:
+        path: cart
+        method: post
+        cors: true
+    - http:
+        path: cart/{id}
+        method: delete
+        cors: true
+
+orders:
+  handler: src/functions/orders.handler
+
+  events:
+    - http:
+        path: orders
+        method: get
+        cors: true
+    - http:
+        path: orders
+        method: post
+        cors: true
+    - http:
+        path: orders/{id}
+        method: get
+        cors: true
